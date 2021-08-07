@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  import Projects from '../components/Projects'
+import Projects from "../components/Projects";
 
-  export default {
-    name: 'Home',
+export default {
+  name: "Home",
 
-    components: {
-      Projects,
-    },
-  }
+  components: {
+    Projects,
+  },
+};
 </script>

@@ -7,7 +7,7 @@ contract("Projects", function(accounts) {
     return Projects.deployed().then(function(instance) {
       return instance.projectsCount();
     }).then(function(count) {
-      assert.equal(count, 6);
+      assert.equal(count, 3);
     });
   });
 })
