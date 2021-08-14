@@ -119,13 +119,35 @@
 </template>
 
 <script>
+import Web3 from "web3";
+const Projects = require("../../build/contracts/Projects.json");
+
 export default {
   name: "Projects",
-
+  mounted() {
+  },
   data: () => ({
     show: false,
   }),
+    methods:{
+      async getValue(){
+        web3 = new Web3(ethereum)
+        console.log(web3)
+        let projectsContract = new web3.eth.Contract(
+        Projects.abi,
+        "0x0680CCdeA3b828a71221Aab993671382a7A5d364"
+      );    
+    this.projectsContract = projectsContract._address;
+    let projectsCount = await projectsContract.methods.projectsCount().call();
+    console.log(projectsCount)
+        
+      },
+  },
+  created: function(){
+      this.getValue()
+  }
 };
+
 </script>
 
 <style lang="scss">

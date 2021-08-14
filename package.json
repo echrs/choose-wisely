@@ -7,10 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
+    "@truffle/contract": "^4.3.29",
     "core-js": "^3.6.5",
+    "truffle-contract": "^4.0.31",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "web3": "^1.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
