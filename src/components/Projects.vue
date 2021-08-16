@@ -124,30 +124,39 @@ const Projects = require("../../build/contracts/Projects.json");
 
 export default {
   name: "Projects",
-  mounted() {
-  },
+  mounted() {},
   data: () => ({
     show: false,
   }),
-    methods:{
-      async getValue(){
-        web3 = new Web3(ethereum)
-        console.log(web3)
-        let projectsContract = new web3.eth.Contract(
+  methods: {
+    async initialize() {
+      web3 = new Web3("ws://localhost:8545");
+      //ganache accs
+      web3.eth.getAccounts(console.log);
+      //get our acc, connect to metamask
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      //console.log(accounts[0]);
+      const netId = await web3.eth.net.getId();
+      const deployedNetwork = Projects.networks[netId];
+      //get our contract
+      const projectsContract = new web3.eth.Contract(
         Projects.abi,
-        "0x0680CCdeA3b828a71221Aab993671382a7A5d364"
-      );    
-    this.projectsContract = projectsContract._address;
-    let projectsCount = await projectsContract.methods.projectsCount().call();
-    console.log(projectsCount)
-        
-      },
+        deployedNetwork.address
+      );
+      //call contract's methods
+      let projectsCount = await projectsContract.methods.projectsCount().call();
+      let proj1 = await projectsContract.methods.projects(1).call();
+      let proj2 = await projectsContract.methods.projects(2).call();
+      let proj3 = await projectsContract.methods.projects(3).call();
+      console.log(projectsCount);
+    },
   },
-  created: function(){
-      this.getValue()
-  }
+  created: function () {
+    this.initialize();
+  },
 };
-
 </script>
 
 <style lang="scss">
