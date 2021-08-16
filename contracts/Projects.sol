@@ -17,6 +17,8 @@ contract Projects {
     mapping(uint => Project) public projects;
     uint public projectsCount; //jer ne mozemo iz mappinga dobiti velicinu
 
+    mapping(address => bool) public voters;
+
     function addProject (string memory _name, string memory _description) private {
         projectsCount++;
         projects[projectsCount] = Project(projectsCount, _name, _description, 0);
@@ -27,6 +29,16 @@ contract Projects {
             count += projects[i].voteCount;
         }
     }
-    
-    address[] private voters;
+
+    function vote(uint _projectId) public {
+        //checking that this address hasn't voted before
+        require(!voters[msg.sender]);
+        //make sure that projectid is valid
+        require(_projectId > 0 && _projectId <= projectsCount);
+        //setting that a voter has voted
+        voters[msg.sender] = true;
+        //incrementing votecount for project
+        projects[_projectId].voteCount++;
+    }
+
 }

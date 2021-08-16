@@ -130,14 +130,15 @@ export default {
   }),
   methods: {
     async initialize() {
-      web3 = new Web3("ws://localhost:8545");
-      //ganache accs
-      web3.eth.getAccounts(console.log);
-      //get our acc, connect to metamask
-      const accounts = await ethereum.request({
+      const web3 = new Web3(window.ethereum);
+      //get contract creator
+      let contractAcc = await web3.eth.getAccounts(console.log);
+      console.log("contract created by: " + contractAcc[0])
+      //get acc on metamask
+      const metaMaskAcc = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      //console.log(accounts[0]);
+      console.log("current acc on metamask: " + metaMaskAcc[0]);
       const netId = await web3.eth.net.getId();
       const deployedNetwork = Projects.networks[netId];
       //get our contract
@@ -147,10 +148,14 @@ export default {
       );
       //call contract's methods
       let projectsCount = await projectsContract.methods.projectsCount().call();
-      let proj1 = await projectsContract.methods.projects(1).call();
       let proj2 = await projectsContract.methods.projects(2).call();
       let proj3 = await projectsContract.methods.projects(3).call();
-      console.log(projectsCount);
+      let vote = await projectsContract.methods.vote(1).send({from: metaMaskAcc[0]})
+      console.log(vote)
+      let proj1 = await projectsContract.methods.projects(1).call();
+
+      console.log(proj1);
+
     },
   },
   created: function () {
