@@ -13,16 +13,13 @@
       <v-col> </v-col
       ><v-col>
         <v-card class="mx-auto" outlined max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
+          <v-img src="@/assets/trash.png" height="200px"></v-img>
 
-          <v-card-title class="font-weight-black"
-            >NEKI KUL PROJEKT</v-card-title
+          <v-card-title class="font-weight-black text-uppercase">
+            {{ this.proj1.name }}</v-card-title
           >
 
-          <v-card-subtitle>Gradnja ovoga i onoga.</v-card-subtitle>
+          <v-card-subtitle>{{ this.proj1.description }}</v-card-subtitle>
 
           <v-card-actions>
             <v-btn color="#F05D23" text>Saznaj više</v-btn>
@@ -47,16 +44,13 @@
       </v-col>
       <v-col>
         <v-card class="mx-auto" outlined max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
+          <v-img src="@/assets/cowork.png" height="200px"></v-img>
 
-          <v-card-title class="font-weight-black"
-            >NEKI KUL PROJEKT</v-card-title
-          >
+          <v-card-title class="font-weight-black text-uppercase">{{
+            this.proj2.name
+          }}</v-card-title>
 
-          <v-card-subtitle>Gradnja ovoga i onoga.</v-card-subtitle>
+          <v-card-subtitle>{{ this.proj2.description }}</v-card-subtitle>
 
           <v-card-actions>
             <v-btn color="#F05D23" text>Saznaj više</v-btn>
@@ -81,16 +75,13 @@
       </v-col>
       <v-col>
         <v-card class="mx-auto" outlined max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
+          <v-img src="@/assets/light.png" height="200px"></v-img>
 
-          <v-card-title class="font-weight-black"
-            >NEKI KUL PROJEKT</v-card-title
-          >
+          <v-card-title class="font-weight-black text-uppercase">{{
+            this.proj3.name
+          }}</v-card-title>
 
-          <v-card-subtitle>Gradnja ovoga i onoga.</v-card-subtitle>
+          <v-card-subtitle>{{ this.proj3.description }}</v-card-subtitle>
 
           <v-card-actions>
             <v-btn color="#F05D23" text>Saznaj više</v-btn>
@@ -107,7 +98,7 @@
           <v-expand-transition>
             <div v-show="show">
               <v-divider></v-divider>
-              <v-card-text> Ekstra informacije. </v-card-text>
+              <v-card-text> dd </v-card-text>
               <v-btn color="#F05D23" text>DAJ SVOJ GLAS</v-btn>
             </div>
           </v-expand-transition>
@@ -127,13 +118,16 @@ export default {
   mounted() {},
   data: () => ({
     show: false,
+    proj1: {},
+    proj2: {},
+    proj3: {},
   }),
   methods: {
     async initialize() {
       const web3 = new Web3(window.ethereum);
       //get contract creator
       let contractAcc = await web3.eth.getAccounts(console.log);
-      console.log("contract created by: " + contractAcc[0])
+      console.log("contract created by: " + contractAcc[0]);
       //get acc on metamask
       const metaMaskAcc = await ethereum.request({
         method: "eth_requestAccounts",
@@ -148,14 +142,12 @@ export default {
       );
       //call contract's methods
       let projectsCount = await projectsContract.methods.projectsCount().call();
-      let proj2 = await projectsContract.methods.projects(2).call();
-      let proj3 = await projectsContract.methods.projects(3).call();
-      let vote = await projectsContract.methods.vote(1).send({from: metaMaskAcc[0]})
-      console.log(vote)
-      let proj1 = await projectsContract.methods.projects(1).call();
+      this.proj1 = await projectsContract.methods.projects(1).call();
+      this.proj2 = await projectsContract.methods.projects(2).call();
+      this.proj3 = await projectsContract.methods.projects(3).call();
 
-      console.log(proj1);
-
+      // let vote = await projectsContract.methods.vote(1).send({from: metaMaskAcc[0]})
+      // console.log(vote)
     },
   },
   created: function () {
