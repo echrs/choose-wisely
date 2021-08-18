@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-main>
     <section id="start">
       <v-row>
         <v-img
@@ -88,7 +88,7 @@
 
                 <v-spacer></v-spacer>
 
-                <v-btn icon @click="show1= !show1">
+                <v-btn icon @click="show1 = !show1">
                   <v-icon>{{
                     show1 ? "mdi-chevron-up" : "mdi-chevron-down"
                   }}</v-icon>
@@ -172,7 +172,7 @@
 
       <div class="py-12"></div>
     </section>
-  </v-container>
+  </v-main>
 </template>
 
 <script>
