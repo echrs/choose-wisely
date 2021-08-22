@@ -34,7 +34,7 @@ contract Projects {
     }
 
     function getVotedCount() public view returns (uint256 count) {
-        for (uint256 i = 0; i < projectsCount; i++) {
+        for (uint256 i = 1; i <= projectsCount; i++) {
             count += projects[i].voteCount;
         }
         return count;
