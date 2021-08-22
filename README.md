@@ -7,7 +7,7 @@ Diplomski studij Informatika, FIPU 2020/2021.
 
 Izradila: Nikki Bernobić
 
-![Farmers Market Finder Demo](demo/choose-wisely.gif)
+![Choose Wisely demo](demo/choose-wisely.gif)
 
 ## Project setup
 
